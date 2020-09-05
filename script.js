@@ -56,6 +56,7 @@ var incorrectAnswers = [
 var questionText = document.getElementById("question");
 // var answerBtn = document.getElementById("answers");
 // questionText.textContent = questions[1];
+var timerEl = document.getElementById("timer");
 
 // for (i = 0; i < answerBtn.length; i++) {
 //   answerBtn.addEventListener("click", function (event) {
@@ -63,3 +64,18 @@ var questionText = document.getElementById("question");
 //     window.open("https://www.espn.com");
 //   });
 // }
+
+function timer() {
+  var secondsLeft = 75;
+  // Create the countdown timer.
+  var timerInterval = setInterval(function () {
+    secondsLeft--;
+    timerEl.textContent = secondsLeft + " seconds left";
+    if (secondsLeft === 0) {
+      clearInterval(timerInterval);
+      //   speedRead();
+      // TODO call show leaderboard function
+    }
+  }, 1000);
+}
+timer();
