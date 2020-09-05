@@ -13,6 +13,29 @@ body {
 }
 
 #question {
-  position: fixed;
+  /* position: fixed;
   top: 25%;
+  left: 18em; */
+  text-align: center;
+}
+
+button {
+  display: block;
+  margin: 10px 0px 10px 0px;
+  border: 2px black solid;
+  border-radius: 8px;
+  margin: auto;
+  position: relative;
+  top: 30px;
+  width: 130px;
+  height: 2.6em;
+  text-align: center;
+}
+
+.jumbotron-fluid {
+  width: 50%;
+  margin: auto;
+  height: 25em;
+  position: relative;
+  top: 4em;
 }
