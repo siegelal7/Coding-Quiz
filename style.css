@@ -1,0 +1,18 @@
+body {
+  background: silver;
+}
+
+#timer {
+  position: fixed;
+  right: 2%;
+}
+
+#highscores {
+  position: fixed;
+  left: 2%;
+}
+
+#question {
+  position: fixed;
+  top: 25%;
+}
