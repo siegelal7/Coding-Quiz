@@ -145,12 +145,14 @@ var questionText = document.getElementById("question");
 var answerEl = document.getElementById("answers");
 var timerEl = document.getElementById("timer");
 var startBtn = document.getElementById("start");
+var score = document.getElementById("highscores");
 
 startBtn.addEventListener("click", generateQuestion);
 
 var askedQuestions = [];
 var randomQuestionIndex = Math.floor(Math.random() * questions.length);
 function generateQuestion() {
+  currentScore = 0;
   if (askedQuestions.includes(randomQuestionIndex) === false) {
     askedQuestions.push(randomQuestionIndex);
     questionText.textContent = questions[randomQuestionIndex].question;
@@ -171,6 +173,25 @@ function generateQuestion() {
     generateQuestion();
   }
 }
+function nextQ() {
+  if (askedQuestions.includes(randomQuestionIndex) === false) {
+    askedQuestions.push(randomQuestionIndex);
+    questionText.textContent = questions[randomQuestionIndex].question;
+    for (i = 0; i < questions.length; i++) {
+      var button = document.createElement("button");
+      button.classList.add("button");
+      if (questions[randomQuestionIndex].answers[i].correct) {
+        button.setAttribute("correct", true);
+      }
+      button.textContent = questions[randomQuestionIndex].answers[i].text;
+      for (j = 0; j < button.length; j++) {
+        button[j].addEventListener("click", handleClick);
+      }
+
+      answerEl.appendChild(button);
+    }
+  }
+}
 
 // var currentId = 0;
 
@@ -184,7 +205,9 @@ function handleClick(event) {
     if (event.target.getAttribute("correct") == "true") {
       console.log("correct");
       currentScore += 10;
+      score.textContent = `${currentScore} points`;
     }
+    nextQ();
   }
 }
 
