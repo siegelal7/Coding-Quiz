@@ -11,7 +11,7 @@
 //   "What is the correct way to write a JavaScript array?",
 // ];
 
-const questions = [
+var questions = [
   {
     question: "Commonly used data types do NOT include:",
     answers: [
@@ -147,28 +147,36 @@ var startBtn = document.getElementById("start");
 startBtn.addEventListener("click", generateQuestion);
 
 var askedQuestions = [];
+var randomQuestionIndex = Math.floor(Math.random() * questions.length);
 function generateQuestion() {
-  var randomQuestionIndex = Math.floor(Math.random() * questions.length);
   if (askedQuestions.includes(randomQuestionIndex) === false) {
     askedQuestions.push(randomQuestionIndex);
     questionText.textContent = questions[randomQuestionIndex].question;
-    var buttons = answerEl.children;
-    buttons.innerText = questions[0].answers.text;
-    // answerEl.appendChild(buttons);
-    // var currentQuestionIndex = questions.indexOf(
-    //   questions[randomQuestionIndex]
-    // );
-    // var answer = answerBtn.children;
-    // testBtn2.textContent = answers[currentQuestionIndex];
-    // testBtn3.textContent = incorrectAnswers.toString(currentQuestionIndex);
-  } else {
+    for (i = 0; i < questions.length; i++) {
+      var button = document.createElement("button");
+      button.classList.add("button");
+      button.setAttribute("style", "display:block");
+      button.textContent = questions[randomQuestionIndex].answers[i].text;
+      for (j = 0; j < button.length; j++) {
+        button[j].addEventListener("click", checkAnswer);
+      }
+
+      answerEl.appendChild(button);
+    }
+
     // console.log("repeated");
     generateQuestion();
   }
 }
 
+function checkAnswer(event) {
+  event.preventDefault();
+  console.log("clicked a button");
+}
+
 var currentId = 0;
 
+// TODO fix this nonsense
 function handleClick(event) {
   event.preventDefault();
 
@@ -197,6 +205,7 @@ startBtn.addEventListener("click", function (event) {
   answerEl.style.display = "block";
   startBtn.style.display = "none";
   timer();
+  generateQuestion();
 });
 // timer();
 
