@@ -11,6 +11,8 @@
 //   "What is the correct way to write a JavaScript array?",
 // ];
 
+var currentScore = 0;
+
 var questions = [
   {
     question: "Commonly used data types do NOT include:",
@@ -155,26 +157,22 @@ function generateQuestion() {
     for (i = 0; i < questions.length; i++) {
       var button = document.createElement("button");
       button.classList.add("button");
-      button.setAttribute("style", "display:block");
+      if (questions[randomQuestionIndex].answers[i].correct) {
+        button.setAttribute("correct", true);
+      }
       button.textContent = questions[randomQuestionIndex].answers[i].text;
+
       for (j = 0; j < button.length; j++) {
-        button[j].addEventListener("click", checkAnswer);
+        button[j].addEventListener("click", handleClick);
       }
 
       answerEl.appendChild(button);
     }
-
-    // console.log("repeated");
     generateQuestion();
   }
 }
 
-function checkAnswer(event) {
-  event.preventDefault();
-  console.log("clicked a button");
-}
-
-var currentId = 0;
+// var currentId = 0;
 
 // TODO fix this nonsense
 function handleClick(event) {
@@ -182,21 +180,28 @@ function handleClick(event) {
 
   if (event.target.matches("button")) {
     event.preventDefault();
-
-    // console.log(currentId);
+    // currentId = parseInt(event.target.parentElement.id);
+    if (event.target.getAttribute("correct") == "true") {
+      console.log("correct");
+      currentScore += 10;
+    }
   }
 }
 
 function timer() {
-  var secondsLeft = 75;
+  var secondsLeft = 5;
   // Create the countdown timer.
   var timerInterval = setInterval(function () {
     secondsLeft--;
     timerEl.textContent = secondsLeft + " seconds left";
     if (secondsLeft === 0) {
       clearInterval(timerInterval);
-      //   speedRead();
-      // TODO call show leaderboard function
+      while (answerEl.firstChild) {
+        answerEl.removeChild(answerEl.lastChild);
+      }
+      questionText.textContent = "Highscores:";
+      console.log(currentScore);
+      // displayLeaderboard()
     }
   }, 1000);
 }
@@ -211,3 +216,13 @@ startBtn.addEventListener("click", function (event) {
 
 answerEl.addEventListener("click", handleClick);
 answerEl.style.display = "none";
+
+// TODO
+function displayLeaderboard() {
+  // var leaderboard = localStorage.getItem("leaders");
+  var leaderboard = ["dave", "stan"];
+  for (i = 0; i < leaderboard.length; i++) {
+    var list = document.createElement("li");
+    answerEl.appendChild(list);
+  }
+}
