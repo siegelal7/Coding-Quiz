@@ -192,6 +192,13 @@ function timer() {
     }
   }, 1000);
 }
-timer();
+startBtn.addEventListener("click", function (event) {
+  event.preventDefault();
+  answerEl.style.display = "block";
+  startBtn.style.display = "none";
+  timer();
+});
+// timer();
 
 answerEl.addEventListener("click", handleClick);
+answerEl.style.display = "none";
