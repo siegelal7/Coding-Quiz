@@ -5,11 +5,13 @@ body {
 #timer {
   position: fixed;
   right: 2%;
+  color: black;
 }
 
 #highscores {
   position: fixed;
   left: 2%;
+  color: black;
 }
 
 #question {
@@ -17,6 +19,7 @@ body {
   top: 25%;
   left: 18em; */
   text-align: center;
+  color: peru;
 }
 
 button {
@@ -27,9 +30,9 @@ button {
   margin: auto;
   position: relative;
   top: 30px;
-  width: 130px;
-  height: 2.6em;
-  text-align: center;
+  width: 9em;
+  height: 4em;
+  background: aquamarine;
 }
 
 .jumbotron-fluid {
