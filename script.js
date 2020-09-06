@@ -140,22 +140,11 @@ const questions = [
 // ];
 
 var questionText = document.getElementById("question");
-var answerBtn = document.getElementById("answers");
+var answerEl = document.getElementById("answers");
 var timerEl = document.getElementById("timer");
-var testBtn = document.getElementById("test");
-var testBtn2 = document.getElementById("test2");
-var testBtn3 = document.getElementById("test3");
-var testBtn4 = document.getElementById("test4");
-// console.log(answerBtn.children);
+var startBtn = document.getElementById("start");
 
-// for (i = 0; i < answerBtn.length; i++) {
-//   answerBtn.addEventListener("click", function (event) {
-//     event.preventDefault();
-//     window.open("https://www.espn.com");
-//   });
-// }
-
-// questionText.textContent = questions[1];
+startBtn.addEventListener("click", generateQuestion);
 
 var askedQuestions = [];
 function generateQuestion() {
@@ -163,6 +152,9 @@ function generateQuestion() {
   if (askedQuestions.includes(randomQuestionIndex) === false) {
     askedQuestions.push(randomQuestionIndex);
     questionText.textContent = questions[randomQuestionIndex].question;
+    var buttons = answerEl.children;
+    buttons.innerText = questions[0].answers.text;
+    // answerEl.appendChild(buttons);
     // var currentQuestionIndex = questions.indexOf(
     //   questions[randomQuestionIndex]
     // );
@@ -175,10 +167,17 @@ function generateQuestion() {
   }
 }
 
-// var currentQuestionIndex = generateQuestion();
-// function generateAnswers(currentQuestionIndex) {
-//   answers.childNodes.textContent = incorrectAnswers.currentQuestionIndex;
-// }
+var currentId = 0;
+
+function handleClick(event) {
+  event.preventDefault();
+
+  if (event.target.matches("button")) {
+    event.preventDefault();
+
+    // console.log(currentId);
+  }
+}
 
 function timer() {
   var secondsLeft = 75;
@@ -195,4 +194,4 @@ function timer() {
 }
 timer();
 
-testBtn.addEventListener("click", generateQuestion);
+answerEl.addEventListener("click", handleClick);
