@@ -104,7 +104,7 @@ var askedQuestionsNumber = 0;
 // currentScore = 0;
 function generateQuestion() {
   if (askedQuestionsNumber >= questions.length) {
-    displayLeaderboard();
+    finalScore();
   } else {
     questionText.textContent = questions[askedQuestionsNumber].question;
     // console.log(randomQuestionIndex);
@@ -162,7 +162,7 @@ function timer() {
       }
       questionText.textContent = "Highscores:";
       // console.log(currentScore);
-      displayLeaderboard();
+      finalScore();
     }
   }, 1000);
 }
@@ -180,7 +180,7 @@ answerEl.style.display = "none";
 var box = document.getElementById("jumbo");
 
 // TODO
-function displayLeaderboard() {
+function finalScore() {
   clearInterval(timerInterval);
   questionText.style.display = "none";
   answerEl.style.display = "none";
