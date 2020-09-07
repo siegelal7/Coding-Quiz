@@ -31,12 +31,61 @@ var questions = [
   },
   {
     question:
+      "String values must be enclosed within _____ when being assigned to variables?",
+    answers: [
+      { text: "quotes", correct: true },
+      { text: "curly brackets", correct: false },
+      { text: "parenthesis", correct: false },
+      { text: "commas", correct: false },
+    ],
+  },
+  {
+    question: "Arrays in JavaScript can be used to store _____.",
+    answers: [
+      { text: "numbers and strings", correct: false },
+      { text: "other Arrays", correct: false },
+      { text: "booleans", correct: false },
+      { text: "all of the above", correct: true },
+    ],
+  },
+  {
+    question:
       "What is the correct syntax for referring to an external script called 'script.js'?",
     answers: [
       { text: "<script href='script.js'>", correct: false },
       { text: "<link src='script.js'>", correct: false },
       { text: "<script src='script.js'>", correct: true },
       { text: "<javascript src='script.js>", correct: false },
+    ],
+  },
+  {
+    question:
+      "A very useful tool during development and debugging for printing content to the debugger is:",
+    answers: [
+      { text: "JavaScript", correct: false },
+      { text: "Terminal", correct: false },
+      { text: "for loops", correct: false },
+      { text: "console.log()", correct: true },
+    ],
+  },
+  {
+    question:
+      "Which of the following function of String object combines the text of two strings and returns a new string?",
+    answers: [
+      { text: "add()", correct: false },
+      { text: "concat()", correct: true },
+      { text: "merge()", correct: false },
+      { text: "append()", correct: false },
+    ],
+  },
+  {
+    question:
+      "Which built-in method adds one or more elements to the end of an array and returns the new length of the array?",
+    answers: [
+      { text: "last()", correct: false },
+      { text: "append()", correct: false },
+      { text: "push()", correct: true },
+      { text: "put()", correct: false },
     ],
   },
   {
@@ -102,6 +151,21 @@ startBtn.addEventListener("click", generateQuestion);
 // var askedQuestions = [];
 var askedQuestionsNumber = 0;
 // currentScore = 0;
+
+function shuffleArray(array) {
+  for (var i = array.length - 1; i > 0; i--) {
+    // Generate random number
+    var j = Math.floor(Math.random() * (i + 1));
+
+    var temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+
+  return array;
+}
+shuffleArray(questions);
+
 function generateQuestion() {
   if (askedQuestionsNumber >= questions.length) {
     finalScore();
@@ -150,7 +214,7 @@ function handleClick(event) {
 }
 var timerInterval;
 function timer() {
-  var secondsLeft = 35;
+  var secondsLeft = 60;
   // Create the countdown timer.
   timerInterval = setInterval(function () {
     secondsLeft--;
