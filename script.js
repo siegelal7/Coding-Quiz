@@ -1,16 +1,3 @@
-// var questions = [
-//   "Commonly used data types do NOT include:",
-//   "The condition in an if/else statement is contained within _____?",
-//   "In which HTML element tag do we put the JavaScript?",
-//   "What is the correct syntax for referring to an external script called 'script.js'?",
-//   "How do you write 'Hello World' in an alert box?",
-//   "How do you create a function in JavaScript?",
-//   "How do you call a function named 'myFunction'?",
-//   "How to write an IF statement in JavaScript?",
-//   "How does a FOR loop start?",
-//   "What is the correct way to write a JavaScript array?",
-// ];
-
 var currentScore = 0;
 
 var questions = [
@@ -203,18 +190,10 @@ function displayLeaderboard() {
   localStorage.setItem("leaders", JSON.stringify(currentScore));
 }
 
-// localStorage.setItem(
-//   "preferences",
-//   JSON.stringify({
-//     workMinutes: workMinutesInput.value.trim(),
-//     restMinutes: restMinutesInput.value.trim()
-//   })
-// );
-
 function retrieveLeaderboard() {
   // scores.setAttribute("style", "display:none");
   // score.setAttribute("style", "display:none");
-  box.h4.textContent = "";
+
   questionText.setAttribute("style", "display:none");
   answerEl.setAttribute("style", "display:none");
   startBtn.setAttribute("style", "display:none");
