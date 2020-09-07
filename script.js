@@ -14,15 +14,16 @@
 var currentScore = 0;
 
 var questions = [
-  {
-    question: "Commonly used data types do NOT include:",
-    answers: [
-      { text: "strings", correct: false },
-      { text: "numbers", correct: false },
-      { text: "booleans", correct: false },
-      { text: "alerts", correct: true },
-    ],
-  },
+  // {
+  //   question: "Commonly used data types do NOT include:",
+  //   correct : "alerts",
+  //   answers: [
+  //     { text: "strings"},
+  //     { text: "numbers"},
+  //     { text: "booleans"},
+  //     { text: "alerts"},
+  //   ],
+  // },
   {
     question:
       "The condition in an if/else statement is contained within _____?",
@@ -102,45 +103,6 @@ var questions = [
   },
 ];
 
-// var answers = [
-//   "alerts",
-//   "{}",
-//   "<script>",
-//   "<script src='script.js'>",
-//   "alert('Hello World')",
-//   "function foo()",
-//   "foo()",
-//   "if (i==5)",
-//   "for (i = 0; i <= 5; i++)",
-//   "var colors = ['red', 'green', 'blue']",
-// ];
-// var incorrectAnswers = [
-//   {
-//     0: ["number", "string", "boolean"],
-//     1: ["()", "<>", "%%"],
-//     2: ["<html>", "<javaScript>", "<footer>"],
-//     3: [
-//       "<script href='script.js'>",
-//       "<script type='script.js'>",
-//       "<script name='script.js'>",
-//     ],
-//     4: [
-//       "prompt('Hello World')",
-//       "say('Hello World')",
-//       "console.log('Hello World')",
-//     ],
-//     5: ["function=foo()", "var function foo()", "function:foo()"],
-//     6: ["call function foo()", "call foo()", "function foo()"],
-//     7: ["if i = 5", "if i == 5 then", "if i = 5 then"],
-//     8: ["for i = 1 to 5", "for (i = 0; i <= 5)", "for (i <= 5; i++)"],
-//     9: [
-//       "var colors = 'red', 'green', 'blue'",
-//       "var colors = 1 = ('red'), 2 = ('green'), 3 = ('blue')",
-//       "var colors{'red', 'blue', 'green'}",
-//     ],
-//   },
-// ];
-
 var questionText = document.getElementById("question");
 var answerEl = document.getElementById("answers");
 var timerEl = document.getElementById("timer");
@@ -149,20 +111,25 @@ var score = document.getElementById("highscores");
 
 startBtn.addEventListener("click", generateQuestion);
 
-var askedQuestions = [];
-var randomQuestionIndex = Math.floor(Math.random() * questions.length);
+// var askedQuestions = [];
+var askedQuestionsNumber = 0;
+// currentScore = 0;
 function generateQuestion() {
-  currentScore = 0;
-  if (askedQuestions.includes(randomQuestionIndex) === false) {
-    askedQuestions.push(randomQuestionIndex);
-    questionText.textContent = questions[randomQuestionIndex].question;
-    for (i = 0; i < questions.length; i++) {
+  if (askedQuestionsNumber >= questions.length) {
+    displayLeaderboard();
+  } else {
+    questionText.textContent = questions[askedQuestionsNumber].question;
+    // console.log(randomQuestionIndex);
+    answerEl.textContent = "";
+
+    for (i = 0; i < questions[askedQuestionsNumber].answers.length; i++) {
       var button = document.createElement("button");
       button.classList.add("button");
-      if (questions[randomQuestionIndex].answers[i].correct) {
+      console.log(i);
+      if (questions[askedQuestionsNumber].answers[i].correct) {
         button.setAttribute("correct", true);
       }
-      button.textContent = questions[randomQuestionIndex].answers[i].text;
+      button.textContent = questions[askedQuestionsNumber].answers[i].text;
 
       for (j = 0; j < button.length; j++) {
         button[j].addEventListener("click", handleClick);
@@ -170,28 +137,16 @@ function generateQuestion() {
 
       answerEl.appendChild(button);
     }
-    generateQuestion();
+    askedQuestionsNumber++;
   }
 }
-function nextQ() {
-  if (askedQuestions.includes(randomQuestionIndex) === false) {
-    askedQuestions.push(randomQuestionIndex);
-    questionText.textContent = questions[randomQuestionIndex].question;
-    for (i = 0; i < questions.length; i++) {
-      var button = document.createElement("button");
-      button.classList.add("button");
-      if (questions[randomQuestionIndex].answers[i].correct) {
-        button.setAttribute("correct", true);
-      }
-      button.textContent = questions[randomQuestionIndex].answers[i].text;
-      for (j = 0; j < button.length; j++) {
-        button[j].addEventListener("click", handleClick);
-      }
+// var randomQuestionIndex = -1;
 
-      answerEl.appendChild(button);
-    }
-  }
-}
+// do {
+//   randomQuestionIndex = Math.floor(Math.random() * questions.length);
+// } while (askedQuestions.includes(randomQuestionIndex) === true);
+
+// askedQuestions.push(randomQuestionIndex);
 
 // var currentId = 0;
 
@@ -207,14 +162,14 @@ function handleClick(event) {
       currentScore += 10;
       score.textContent = `${currentScore} points`;
     }
-    nextQ();
+    generateQuestion();
   }
 }
-
+var timerInterval;
 function timer() {
-  var secondsLeft = 5;
+  var secondsLeft = 19;
   // Create the countdown timer.
-  var timerInterval = setInterval(function () {
+  timerInterval = setInterval(function () {
     secondsLeft--;
     timerEl.textContent = secondsLeft + " seconds left";
     if (secondsLeft === 0) {
@@ -224,7 +179,7 @@ function timer() {
       }
       questionText.textContent = "Highscores:";
       console.log(currentScore);
-      // displayLeaderboard()
+      displayLeaderboard();
     }
   }, 1000);
 }
@@ -239,13 +194,24 @@ startBtn.addEventListener("click", function (event) {
 
 answerEl.addEventListener("click", handleClick);
 answerEl.style.display = "none";
-
+var box = document.getElementById("jumbo");
 // TODO
 function displayLeaderboard() {
-  // var leaderboard = localStorage.getItem("leaders");
-  var leaderboard = ["dave", "stan"];
-  for (i = 0; i < leaderboard.length; i++) {
-    var list = document.createElement("li");
-    answerEl.appendChild(list);
-  }
+  clearInterval(timerInterval);
+  questionText.style.display = "none";
+  answerEl.style.display = "none";
+  var leaderScores = document.createElement("h4");
+  leaderScores.textContent = "High scores:";
+  box.appendChild(leaderScores);
+  var scores = document.createElement("h5");
+  name = prompt("Enter your intials");
+  scores.textContent = `${name}: ${currentScore}`;
+  box.appendChild(scores);
+  localStorage.getItem("leaders", JSON.stringify(currentScore));
+}
+
+function retrieveLeaderboard() {
+  scores.setAttribute("style", "display:none");
+  questionText.setAttribute("style", "display:none");
+  answerEl.setAttribute("style", "display:none");
 }
