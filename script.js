@@ -212,6 +212,7 @@ function handleClick(event) {
     generateQuestion();
   }
 }
+// I had to initialize this var outside the function so I could use it elsewhere
 var timerInterval;
 function timer() {
   var secondsLeft = 60;
