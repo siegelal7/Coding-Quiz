@@ -95,6 +95,7 @@ var timerEl = document.getElementById("timer");
 var startBtn = document.getElementById("start");
 var score = document.getElementById("highscores");
 var lead = document.getElementById("leaders");
+var validationText = document.getElementById("validation");
 
 startBtn.addEventListener("click", generateQuestion);
 
@@ -137,9 +138,13 @@ function handleClick(event) {
     // currentId = parseInt(event.target.parentElement.id);
     if (event.target.getAttribute("correct") == "true") {
       // console.log("correct");
+      validationText.textContent = "Correct!";
       currentScore += 10;
       score.textContent = `${currentScore} points`;
+    } else {
+      validationText.textContent = "Wrong!";
     }
+
     generateQuestion();
   }
 }
@@ -179,6 +184,7 @@ function displayLeaderboard() {
   clearInterval(timerInterval);
   questionText.style.display = "none";
   answerEl.style.display = "none";
+  validationText.style.display = "none";
   var leaderScores = document.createElement("h4");
   leaderScores.textContent = "High scores:";
   box.appendChild(leaderScores);
@@ -193,7 +199,7 @@ function displayLeaderboard() {
 function retrieveLeaderboard() {
   // scores.setAttribute("style", "display:none");
   // score.setAttribute("style", "display:none");
-
+  validationText.style.display = "none";
   questionText.setAttribute("style", "display:none");
   answerEl.setAttribute("style", "display:none");
   startBtn.setAttribute("style", "display:none");

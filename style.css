@@ -42,3 +42,9 @@ button {
   position: relative;
   top: 4em;
 }
+
+#validation {
+  position: relative;
+  top: 4em;
+  left: 45em;
+}
