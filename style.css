@@ -8,7 +8,7 @@ body {
   color: black;
 }
 
-#highscores {
+.scores {
   position: fixed;
   left: 2%;
   color: black;

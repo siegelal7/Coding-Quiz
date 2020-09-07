@@ -14,16 +14,15 @@
 var currentScore = 0;
 
 var questions = [
-  // {
-  //   question: "Commonly used data types do NOT include:",
-  //   correct : "alerts",
-  //   answers: [
-  //     { text: "strings"},
-  //     { text: "numbers"},
-  //     { text: "booleans"},
-  //     { text: "alerts"},
-  //   ],
-  // },
+  {
+    question: "Commonly used data types do NOT include:",
+    answers: [
+      { text: "strings", correct: false },
+      { text: "numbers", correct: false },
+      { text: "booleans", correct: false },
+      { text: "alerts", correct: true },
+    ],
+  },
   {
     question:
       "The condition in an if/else statement is contained within _____?",
@@ -108,6 +107,7 @@ var answerEl = document.getElementById("answers");
 var timerEl = document.getElementById("timer");
 var startBtn = document.getElementById("start");
 var score = document.getElementById("highscores");
+var lead = document.getElementById("leaders");
 
 startBtn.addEventListener("click", generateQuestion);
 
@@ -125,7 +125,7 @@ function generateQuestion() {
     for (i = 0; i < questions[askedQuestionsNumber].answers.length; i++) {
       var button = document.createElement("button");
       button.classList.add("button");
-      console.log(i);
+      // console.log(i);
       if (questions[askedQuestionsNumber].answers[i].correct) {
         button.setAttribute("correct", true);
       }
@@ -140,15 +140,6 @@ function generateQuestion() {
     askedQuestionsNumber++;
   }
 }
-// var randomQuestionIndex = -1;
-
-// do {
-//   randomQuestionIndex = Math.floor(Math.random() * questions.length);
-// } while (askedQuestions.includes(randomQuestionIndex) === true);
-
-// askedQuestions.push(randomQuestionIndex);
-
-// var currentId = 0;
 
 // TODO fix this nonsense
 function handleClick(event) {
@@ -158,7 +149,7 @@ function handleClick(event) {
     event.preventDefault();
     // currentId = parseInt(event.target.parentElement.id);
     if (event.target.getAttribute("correct") == "true") {
-      console.log("correct");
+      // console.log("correct");
       currentScore += 10;
       score.textContent = `${currentScore} points`;
     }
@@ -178,7 +169,7 @@ function timer() {
         answerEl.removeChild(answerEl.lastChild);
       }
       questionText.textContent = "Highscores:";
-      console.log(currentScore);
+      // console.log(currentScore);
       displayLeaderboard();
     }
   }, 1000);
@@ -195,6 +186,7 @@ startBtn.addEventListener("click", function (event) {
 answerEl.addEventListener("click", handleClick);
 answerEl.style.display = "none";
 var box = document.getElementById("jumbo");
+
 // TODO
 function displayLeaderboard() {
   clearInterval(timerInterval);
@@ -207,11 +199,31 @@ function displayLeaderboard() {
   name = prompt("Enter your intials");
   scores.textContent = `${name}: ${currentScore}`;
   box.appendChild(scores);
-  localStorage.getItem("leaders", JSON.stringify(currentScore));
+  localStorage.setItem("name", JSON.stringify(name));
+  localStorage.setItem("leaders", JSON.stringify(currentScore));
 }
 
+// localStorage.setItem(
+//   "preferences",
+//   JSON.stringify({
+//     workMinutes: workMinutesInput.value.trim(),
+//     restMinutes: restMinutesInput.value.trim()
+//   })
+// );
+
 function retrieveLeaderboard() {
-  scores.setAttribute("style", "display:none");
+  // scores.setAttribute("style", "display:none");
+  // score.setAttribute("style", "display:none");
+  box.h4.textContent = "";
   questionText.setAttribute("style", "display:none");
   answerEl.setAttribute("style", "display:none");
+  startBtn.setAttribute("style", "display:none");
+  // box.removeChild(scores);
+  var people = document.createElement("h5");
+  people.textContent = `${JSON.parse(
+    localStorage.getItem("name")
+  )}: ${JSON.parse(localStorage.getItem("leaders"))}`;
+  box.appendChild(people);
 }
+
+lead.addEventListener("click", retrieveLeaderboard);
