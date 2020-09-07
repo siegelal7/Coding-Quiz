@@ -150,7 +150,7 @@ function handleClick(event) {
 }
 var timerInterval;
 function timer() {
-  var secondsLeft = 19;
+  var secondsLeft = 60;
   // Create the countdown timer.
   timerInterval = setInterval(function () {
     secondsLeft--;
