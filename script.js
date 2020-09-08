@@ -1,4 +1,6 @@
 var currentScore = 0;
+var highScores = [];
+var box = document.getElementById("jumbo");
 
 var questions = [
   {
@@ -212,6 +214,7 @@ function handleClick(event) {
     generateQuestion();
   }
 }
+
 // I had to initialize this var outside the function so I could use it elsewhere
 var timerInterval;
 function timer() {
@@ -246,6 +249,7 @@ var box = document.getElementById("jumbo");
 
 // TODO
 var leaderScores, scores;
+// var highScores=[]
 function finalScore() {
   clearInterval(timerInterval);
   questionText.style.display = "none";
@@ -255,30 +259,55 @@ function finalScore() {
   leaderScores.textContent = "High scores:";
   box.appendChild(leaderScores);
   scores = document.createElement("h5");
-  name = prompt("Enter your intials");
-  scores.textContent = `${name}: ${currentScore}`;
-  box.appendChild(scores);
-  localStorage.setItem("name", JSON.stringify(name));
-  localStorage.setItem("leaders", JSON.stringify(currentScore));
+  var storedScores = JSON.parse(localStorage.getItem("highscores"));
+  if (storedScores !== null) {
+    highScores = storedScores;
+  }
+
+  var name = prompt("Enter your intials");
+  // scores.textContent = `${name}: ${currentScore}`;
+  // box.appendChild(scores);
+
+  var userObject = {
+    userInitials: name,
+    finalScore: currentScore,
+  };
+  highScores.push(userObject);
+  localStorage.setItem("highscores", JSON.stringify(highScores));
+  retrieveLeaderboard();
 }
 
 function retrieveLeaderboard() {
-  // scores.setAttribute("style", "display:none");
-  // score.setAttribute("style", "display:none");
-  leaderScores.textContent = "High Scores:";
-  scores.textContent = "";
+  var leaderScores = document.createElement("h4");
+  leaderScores = document.createElement("h4");
+  leaderScores.textContent = "High scores:";
+  box.appendChild(leaderScores);
+  // leaderScores.textContent = "High Scores:";
+  // scores.textContent = "";
   validationText.style.display = "none";
   questionText.setAttribute("style", "display:none");
   answerEl.setAttribute("style", "display:none");
   startBtn.setAttribute("style", "display:none");
+
+  var storedScores = JSON.parse(localStorage.getItem("highscores"));
+  if (storedScores !== null) {
+    highScores = storedScores;
+  }
+
   // box.removeChild(scores);
-  var people = document.createElement("h5");
-  for (i = 0; i < localStorage.getItem("leaders").length; i++) {
-    people.textContent = `${JSON.parse(
-      localStorage.getItem("name")
-    )}: ${JSON.parse(localStorage.getItem("leaders"))}`;
+
+  for (i = 0; i < highScores.length; i++) {
+    // highScores.sort();
+    var people = document.createElement("h5");
+    people.textContent = `${highScores[i].userInitials}: ${highScores[i].finalScore}`;
     box.appendChild(people);
   }
+
+  // people.textContent = JSON.parse(localStorage.getItem("highscores"));
+  // people.textContent = `${JSON.parse(
+  //   localStorage.getItem("name")
+  // )}: ${JSON.parse(localStorage.getItem("leaders"))}`;
+  // box.appendChild(people);
 }
 
 lead.addEventListener("click", retrieveLeaderboard);
