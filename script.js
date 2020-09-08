@@ -245,15 +245,16 @@ answerEl.style.display = "none";
 var box = document.getElementById("jumbo");
 
 // TODO
+var leaderScores, scores;
 function finalScore() {
   clearInterval(timerInterval);
   questionText.style.display = "none";
   answerEl.style.display = "none";
   validationText.style.display = "none";
-  var leaderScores = document.createElement("h4");
+  leaderScores = document.createElement("h4");
   leaderScores.textContent = "High scores:";
   box.appendChild(leaderScores);
-  var scores = document.createElement("h5");
+  scores = document.createElement("h5");
   name = prompt("Enter your intials");
   scores.textContent = `${name}: ${currentScore}`;
   box.appendChild(scores);
@@ -264,16 +265,20 @@ function finalScore() {
 function retrieveLeaderboard() {
   // scores.setAttribute("style", "display:none");
   // score.setAttribute("style", "display:none");
+  leaderScores.textContent = "High Scores:";
+  scores.textContent = "";
   validationText.style.display = "none";
   questionText.setAttribute("style", "display:none");
   answerEl.setAttribute("style", "display:none");
   startBtn.setAttribute("style", "display:none");
   // box.removeChild(scores);
   var people = document.createElement("h5");
-  people.textContent = `${JSON.parse(
-    localStorage.getItem("name")
-  )}: ${JSON.parse(localStorage.getItem("leaders"))}`;
-  box.appendChild(people);
+  for (i = 0; i < localStorage.getItem("leaders").length; i++) {
+    people.textContent = `${JSON.parse(
+      localStorage.getItem("name")
+    )}: ${JSON.parse(localStorage.getItem("leaders"))}`;
+    box.appendChild(people);
+  }
 }
 
 lead.addEventListener("click", retrieveLeaderboard);
