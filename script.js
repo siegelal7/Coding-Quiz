@@ -1,7 +1,3 @@
-var currentScore = 0;
-var highScores = [];
-var box = document.getElementById("jumbo");
-
 var questions = [
   {
     question: "Commonly used data types do NOT include:",
@@ -140,6 +136,9 @@ var questions = [
   },
 ];
 
+var currentScore = 0;
+var highScores = [];
+var box = document.getElementById("jumbo");
 var questionText = document.getElementById("question");
 var answerEl = document.getElementById("answers");
 var timerEl = document.getElementById("timer");
@@ -147,13 +146,13 @@ var startBtn = document.getElementById("start");
 var score = document.getElementById("highscores");
 var lead = document.getElementById("leaders");
 var validationText = document.getElementById("validation");
+var box = document.getElementById("jumbo");
 
 startBtn.addEventListener("click", generateQuestion);
 
-// var askedQuestions = [];
 var askedQuestionsNumber = 0;
-// currentScore = 0;
 
+//GOT THIS function from https://www.geeksforgeeks.org/how-to-shuffle-an-array-using-javascript/
 function shuffleArray(array) {
   for (var i = array.length - 1; i > 0; i--) {
     // Generate random number
@@ -195,7 +194,6 @@ function generateQuestion() {
   }
 }
 
-// TODO fix this nonsense
 function handleClick(event) {
   event.preventDefault();
 
@@ -207,6 +205,8 @@ function handleClick(event) {
       validationText.textContent = "Correct!";
       currentScore += 10;
       score.textContent = `${currentScore} points`;
+
+      // clearInterval(time);
     } else {
       validationText.textContent = "Wrong!";
     }
@@ -244,21 +244,20 @@ startBtn.addEventListener("click", function (event) {
 // timer();
 
 answerEl.addEventListener("click", handleClick);
-answerEl.style.display = "none";
-var box = document.getElementById("jumbo");
 
-// TODO
 var leaderScores, scores;
-// var highScores=[]
+
 function finalScore() {
+  validationText.textContent = "";
   clearInterval(timerInterval);
   questionText.style.display = "none";
   answerEl.style.display = "none";
   validationText.style.display = "none";
-  leaderScores = document.createElement("h4");
-  leaderScores.textContent = "High scores:";
-  box.appendChild(leaderScores);
-  scores = document.createElement("h5");
+  // leaderScores = document.createElement("h4");
+  // leaderScores.textContent = "High scores:";
+  // box.appendChild(leaderScores);
+  // scores = document.createElement("h5");
+
   var storedScores = JSON.parse(localStorage.getItem("highscores"));
   if (storedScores !== null) {
     highScores = storedScores;
@@ -278,12 +277,13 @@ function finalScore() {
 }
 
 function retrieveLeaderboard() {
-  var leaderScores = document.createElement("h4");
-  leaderScores = document.createElement("h4");
+  clearInterval(timerInterval);
+  box.textContent = "";
+  var leaderScores = document.createElement("h2");
   leaderScores.textContent = "High scores:";
+  leaderScores.style.textAlign = "center";
   box.appendChild(leaderScores);
-  // leaderScores.textContent = "High Scores:";
-  // scores.textContent = "";
+
   validationText.style.display = "none";
   questionText.setAttribute("style", "display:none");
   answerEl.setAttribute("style", "display:none");
@@ -295,19 +295,14 @@ function retrieveLeaderboard() {
   }
 
   // box.removeChild(scores);
-
+  sortedScores = highScores.sort((a, b) => b.finalScore - a.finalScore);
   for (i = 0; i < highScores.length; i++) {
     // highScores.sort();
     var people = document.createElement("h5");
-    people.textContent = `${highScores[i].userInitials}: ${highScores[i].finalScore}`;
+    people.textContent = `${sortedScores[i].userInitials}: ${highScores[i].finalScore}`;
+    people.style.textAlign = "center";
     box.appendChild(people);
   }
-
-  // people.textContent = JSON.parse(localStorage.getItem("highscores"));
-  // people.textContent = `${JSON.parse(
-  //   localStorage.getItem("name")
-  // )}: ${JSON.parse(localStorage.getItem("leaders"))}`;
-  // box.appendChild(people);
 }
 
 lead.addEventListener("click", retrieveLeaderboard);

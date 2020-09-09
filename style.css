@@ -38,13 +38,34 @@ button {
 .jumbotron-fluid {
   width: 50%;
   margin: auto;
-  height: 29em;
+  height: 80vh;
   position: relative;
   top: 4em;
 }
 
-#validation {
-  position: relative;
-  top: 4em;
-  left: 29.3em;
+@media screen and (max-width: 1100px) {
+  .jumbotron-fluid {
+    height: 87vh;
+    width: 60vw;
+  }
 }
+
+#validation {
+  /* position: fixed;
+  bottom: 3em;
+  left: 19em; */
+
+  position: relative;
+  left: 46%;
+  bottom: 4em;
+  /* position: relative;
+  top: 100px; */
+}
+
+/* @media screen and (min-width: 600px) {
+  validation {
+    position: relative;
+    left: 45%;
+    bottom: 3em;
+  }
+} */
