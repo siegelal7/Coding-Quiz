@@ -253,19 +253,12 @@ function finalScore() {
   questionText.style.display = "none";
   answerEl.style.display = "none";
   validationText.style.display = "none";
-  // leaderScores = document.createElement("h4");
-  // leaderScores.textContent = "High scores:";
-  // box.appendChild(leaderScores);
-  // scores = document.createElement("h5");
 
   var storedScores = JSON.parse(localStorage.getItem("highscores"));
   if (storedScores !== null) {
     highScores = storedScores;
   }
-
   var name = prompt("Enter your intials");
-  // scores.textContent = `${name}: ${currentScore}`;
-  // box.appendChild(scores);
 
   var userObject = {
     userInitials: name,
