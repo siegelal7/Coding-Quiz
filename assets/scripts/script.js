@@ -230,6 +230,7 @@ function timer() {
         answerEl.removeChild(answerEl.lastChild);
       }
       questionText.textContent = "Highscores:";
+
       // console.log(currentScore);
       finalScore();
     }
@@ -249,6 +250,7 @@ answerEl.addEventListener("click", handleClick);
 var leaderScores, scores;
 
 function finalScore() {
+  timerEl.textContent = "Good Game!";
   validationText.textContent = "";
   clearInterval(timerInterval);
   questionText.style.display = "none";
