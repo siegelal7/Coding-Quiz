@@ -56,31 +56,12 @@ button {
   left: 44%;
   top: 2.5em;
 }
-/* @media screen and (max-width: 1400px) {
-  #validation {
-    position: relative;
-    top: 2.5em;
-    left: 12em;
-  }
+
+.navbar {
+  /* background-color: silver !important; */
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
 }
-@media screen and (max-width: 1050px) {
-  #validation {
-    position: relative;
-    top: 2.5em;
-    left: 9em;
-  }
-}
-@media screen and (max-width: 850px) {
-  #validation {
-    position: relative;
-    top: 2.5em;
-    left: 7em;
-  }
-}
-@media screen and (max-width: 685px) {
-  #validation {
-    position: relative;
-    top: 2.5em;
-    left: 5em;
-  }
-} */
