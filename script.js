@@ -209,6 +209,7 @@ function handleClick(event) {
       // clearInterval(time);
     } else {
       validationText.textContent = "Wrong!";
+      secondsLeft = secondsLeft - 5;
     }
 
     generateQuestion();
@@ -216,14 +217,14 @@ function handleClick(event) {
 }
 
 // I had to initialize this var outside the function so I could use it elsewhere
-var timerInterval;
+var timerInterval, secondsLeft;
 function timer() {
-  var secondsLeft = 60;
+  secondsLeft = 60;
   // Create the countdown timer.
   timerInterval = setInterval(function () {
     secondsLeft--;
     timerEl.textContent = secondsLeft + " seconds left";
-    if (secondsLeft === 0) {
+    if (secondsLeft <= 0) {
       clearInterval(timerInterval);
       while (answerEl.firstChild) {
         answerEl.removeChild(answerEl.lastChild);
