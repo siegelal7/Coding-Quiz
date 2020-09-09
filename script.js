@@ -31,9 +31,9 @@ var questions = [
     question:
       "String values must be enclosed within _____ when being assigned to variables?",
     answers: [
-      { text: "quotes", correct: true },
-      { text: "curly brackets", correct: false },
       { text: "parenthesis", correct: false },
+      { text: "curly brackets", correct: false },
+      { text: "quotes", correct: true },
       { text: "commas", correct: false },
     ],
   },
@@ -107,10 +107,10 @@ var questions = [
   {
     question: "How to write an IF statement in JavaScript?",
     answers: [
-      { text: "if (i>=4)", correct: true },
+      { text: "if: (i>=4)", correct: false },
       { text: "if i = 5", correct: false },
       { text: "if {i==5}", correct: false },
-      { text: "if: (i>=4)", correct: false },
+      { text: "if (i>=4)", correct: true },
     ],
   },
   {
@@ -125,8 +125,8 @@ var questions = [
   {
     question: "What is the correct way to write a JavaScript array?",
     answers: [
-      { text: "var colors = ['red', 'green', 'blue']", correct: true },
       { text: "var colors = 'red', 'green', 'blue'", correct: false },
+      { text: "var colors = ['red', 'green', 'blue']", correct: true },
       {
         text: "var colors = 1 = ('red'), 2 = ('green'), 3 = ('blue')",
         correct: false,
@@ -234,6 +234,7 @@ function timer() {
     }
   }, 1000);
 }
+
 startBtn.addEventListener("click", function (event) {
   event.preventDefault();
   answerEl.style.display = "block";
@@ -241,7 +242,6 @@ startBtn.addEventListener("click", function (event) {
   timer();
   generateQuestion();
 });
-// timer();
 
 answerEl.addEventListener("click", handleClick);
 

@@ -51,21 +51,7 @@ button {
 }
 
 #validation {
-  /* position: fixed;
-  bottom: 3em;
-  left: 19em; */
-
   position: relative;
   left: 46%;
-  bottom: 4em;
-  /* position: relative;
-  top: 100px; */
+  bottom: 1.5em;
 }
-
-/* @media screen and (min-width: 600px) {
-  validation {
-    position: relative;
-    left: 45%;
-    bottom: 3em;
-  }
-} */
