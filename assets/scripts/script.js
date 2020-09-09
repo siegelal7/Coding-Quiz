@@ -168,13 +168,14 @@ function shuffleArray(array) {
 shuffleArray(questions);
 
 function generateQuestion() {
+  // this determines if all questions have been asked alrdy then moves to else part
   if (askedQuestionsNumber >= questions.length) {
     finalScore();
   } else {
     questionText.textContent = questions[askedQuestionsNumber].question;
     // console.log(randomQuestionIndex);
     answerEl.textContent = "";
-
+    //creates the answer buttons associated with the question at the decided index-which I initialized above starting at 0
     for (i = 0; i < questions[askedQuestionsNumber].answers.length; i++) {
       var button = document.createElement("button");
       button.classList.add("button");
@@ -194,6 +195,7 @@ function generateQuestion() {
   }
 }
 
+//this function will handle answer clicks cuz they're populated on demand with the questions
 function handleClick(event) {
   event.preventDefault();
 
@@ -236,7 +238,7 @@ function timer() {
     }
   }, 1000);
 }
-
+//start the game!
 startBtn.addEventListener("click", function (event) {
   event.preventDefault();
   answerEl.style.display = "block";
@@ -250,13 +252,14 @@ answerEl.addEventListener("click", handleClick);
 var leaderScores, scores;
 
 function finalScore() {
+  //this function was gonna be a final score page but it's really just what happens when the game ends
   timerEl.textContent = "Good Game!";
   validationText.textContent = "";
   clearInterval(timerInterval);
   questionText.style.display = "none";
   answerEl.style.display = "none";
   validationText.style.display = "none";
-
+  //not sure if I need this here, as well as below but eff it here it is
   var storedScores = JSON.parse(localStorage.getItem("highscores"));
   if (storedScores !== null) {
     highScores = storedScores;
@@ -273,6 +276,7 @@ function finalScore() {
 }
 
 function retrieveLeaderboard() {
+  //stop the clock and clear all the nonsense from page-also creating some elements to show the leaderboard
   clearInterval(timerInterval);
   box.textContent = "";
   var leaderScores = document.createElement("h2");
@@ -285,12 +289,13 @@ function retrieveLeaderboard() {
   answerEl.setAttribute("style", "display:none");
   startBtn.setAttribute("style", "display:none");
 
+  //pull the value and then set it equal to the empty array I initialized above
   var storedScores = JSON.parse(localStorage.getItem("highscores"));
   if (storedScores !== null) {
     highScores = storedScores;
   }
 
-  // box.removeChild(scores);
+  //this function sorts the finalscore value pulled from localstorage so its a proper scoreboard
   sortedScores = highScores.sort((a, b) => b.finalScore - a.finalScore);
   for (i = 0; i < highScores.length; i++) {
     // highScores.sort();
@@ -299,6 +304,13 @@ function retrieveLeaderboard() {
     people.style.textAlign = "center";
     box.appendChild(people);
   }
+  var startAgain = document.createElement("button");
+  startAgain.textContent = "Play again?";
+  box.appendChild(startAgain);
+  // this event listener simply reloads the page
+  startAgain.addEventListener("click", function () {
+    window.location.reload(false);
+  });
 }
 
 lead.addEventListener("click", retrieveLeaderboard);
