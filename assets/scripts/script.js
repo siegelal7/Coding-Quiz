@@ -221,7 +221,7 @@ function handleClick(event) {
 // I had to initialize this var outside the function so I could use it elsewhere
 var timerInterval, secondsLeft;
 function timer() {
-  secondsLeft = 60;
+  secondsLeft = 85;
   // Create the countdown timer.
   timerInterval = setInterval(function () {
     secondsLeft--;
