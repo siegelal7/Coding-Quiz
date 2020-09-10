@@ -56,7 +56,14 @@ button {
   left: 44%;
   top: 2.5em;
 }
-
+#directions {
+  text-align: center;
+  font-weight: bold;
+  border-style: solid;
+  border-color: silver;
+  color: peru !important;
+  padding: 15px 0px 0px 0px;
+}
 .navbar {
   /* background-color: silver !important; */
   position: fixed;

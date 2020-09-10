@@ -147,6 +147,7 @@ var score = document.getElementById("highscores");
 var lead = document.getElementById("leaders");
 var validationText = document.getElementById("validation");
 var box = document.getElementById("jumbo");
+var direction = document.getElementById("directions");
 
 startBtn.addEventListener("click", generateQuestion);
 
@@ -243,6 +244,7 @@ startBtn.addEventListener("click", function (event) {
   event.preventDefault();
   answerEl.style.display = "block";
   startBtn.style.display = "none";
+  direction.style.display = "none";
   timer();
   generateQuestion();
 });
